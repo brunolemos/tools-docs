@@ -118,11 +118,11 @@ Authentication headers from context
 
 ```js
 const fetcher = createApolloFetch({ uri: 'http://api.githunt.com/graphql'});
-fetcher.use({ request, option }, next) => {
+fetcher.use(({ request, options }, next) => {
   if (!options.headers) {
     options.headers = {};
   }
-  options.headers['Authorization'] = `Bearer ${request.context.authKey}`;
+  options.headers.Authorization = `Bearer ${request.context.authKey}`;
 
   next();
 });
@@ -142,7 +142,7 @@ Basic usage
 import fetch from 'node-fetch';
 
 const fetcher = async ({ query, variables, operationName, context }) => {
-  const fetchResult = fetch('http://api.githunt.com/graphql', {
+  const fetchResult = await fetch('http://api.githunt.com/graphql', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -163,7 +163,7 @@ Authentication headers from context
 import fetch from 'node-fetch';
 
 const fetcher = async ({ query, variables, operationName, context }) => {
-  const fetchResult = fetch('http://api.githunt.com/graphql', {
+  const fetchResult = await fetch('http://api.githunt.com/graphql', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
